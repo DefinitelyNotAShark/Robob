@@ -28,7 +28,7 @@ public class MovePlayer : MonoBehaviour {
     void Start ()
     {
         movementAxisName = "Vertical" + playerNumber;
-        turnAxisName = "Horizontal" + playerNumber;//my horizontal movement's gonna be different, but i'll do that later
+        turnAxisName = "Horizontal" + playerNumber;
     }
 	
 	// Update is called once per frame
