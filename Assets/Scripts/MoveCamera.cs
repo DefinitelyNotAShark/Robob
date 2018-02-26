@@ -21,6 +21,8 @@ public class MoveCamera : MonoBehaviour {
     private Vector3 moveVelocity;
     private Vector3 desiredPosition;
 
+
+
     private void Awake()
     {
         camera = GetComponentInChildren<Camera>();
@@ -29,7 +31,7 @@ public class MoveCamera : MonoBehaviour {
     private void FixedUpdate()
     {
         Move();
-        Zoom();
+       Zoom(); //Fuck man this shit dont work i cant even it zooms out wayyyyy to much
     }
 
     private void Move()
@@ -40,11 +42,10 @@ public class MoveCamera : MonoBehaviour {
     private void Zoom()
     {
         float requiredSize = FindRequiredSize();
-
-        //Camera.orthographicSize = Mathf.SmoothDamp(Camera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
+        camera.orthographicSize = Mathf.SmoothDamp(camera.orthographicSize, requiredSize, ref zoomSpeed, dampTime);
     }
 
-    private float FindRequiredSize()
+    private float FindRequiredSize()//something in this function makes it zoom WAY too m
     {
         Vector3 desiredLocalPos = transform.InverseTransformPoint(desiredPosition);//makes the desired local an inverse of desired pos
         float size = 0f;
@@ -58,7 +59,7 @@ public class MoveCamera : MonoBehaviour {
             Vector3 desiredPosToPlayer = targetLocalPos - desiredLocalPos;
 
             size = Mathf.Max(size, Mathf.Abs(desiredPosToPlayer.y));//takes biggest number between the size and the desired position to player
-            //size = Mathf.Max(size, Mathf.Abs(desiredPosToPlayer.x) / Camera.aspect);//find biggest number between size and desired position to player
+            size = Mathf.Max(size, Mathf.Abs(desiredPosToPlayer.x) / camera.aspect);//find biggest number between size and desired position to player
         }
 
         size += screenEdgeBuffer;
@@ -92,6 +93,6 @@ public class MoveCamera : MonoBehaviour {
         FindAveragePosition();
 
         transform.position = desiredPosition;//sets position to desired position
-        //Camera.orthographicSize = FindRequiredSize();
+        camera.orthographicSize = FindRequiredSize();
     }
 }
