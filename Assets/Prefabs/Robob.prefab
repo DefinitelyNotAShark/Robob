@@ -1213,7 +1213,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1409025366342914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.49, z: 0}
+  m_LocalPosition: {x: 17.7, y: 5.3, z: 28.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4649783738473150}
@@ -1279,7 +1279,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758348262092754}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.094, y: 1.276, z: 0.19}
+  m_LocalPosition: {x: 0.451, y: 1.276, z: 0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4649783738473150}
@@ -73828,10 +73828,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserSpeed: 100
-  playerNumber: 1
   bulletRbdy: {fileID: 54932544435891442, guid: c476cfa0dd3b9fa4e9e8f3298f183aad,
     type: 2}
   spawnLaser: {fileID: 4972009968025632}
+  playerNumber: 1
 --- !u!114 &114742681970404610
 MonoBehaviour:
   m_ObjectHideFlags: 1

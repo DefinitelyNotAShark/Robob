@@ -8,8 +8,6 @@ public class Shoot : MonoBehaviour {
     [SerializeField]
     private int laserSpeed;
 
-    [SerializeField]
-    int playerNumber = 1;
 
     [SerializeField]
     Rigidbody bulletRbdy;
@@ -17,9 +15,10 @@ public class Shoot : MonoBehaviour {
     [SerializeField]
     Transform spawnLaser;
 
-    string fireButton;
+    public int playerNumber = 1;
     public static  bool fired;
 
+    string fireButton;
 
 	// Use this for initialization
 	void Start () {

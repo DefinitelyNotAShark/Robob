@@ -14,6 +14,7 @@ public class MoveCamera : MonoBehaviour {
     [SerializeField]
     private float minCameraSize = 7f;
 
+    [HideInInspector]
     public Transform[] Players;
 
     private Camera camera;
