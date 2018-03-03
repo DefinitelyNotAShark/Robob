@@ -14,14 +14,16 @@ public class Shoot : MonoBehaviour {
     [SerializeField]
     Rigidbody bulletRbdy;
 
+    [SerializeField]
+    Transform spawnLaser;
+
     string fireButton;
-    bool fired; 
+    public static  bool fired;
 
 
 	// Use this for initialization
 	void Start () {
         fireButton = "Fire" + playerNumber;
-        bulletRbdy = GetComponent<Rigidbody>();
 	}
 
     // Update is called once per frame
@@ -36,9 +38,7 @@ public class Shoot : MonoBehaviour {
     private void Fire()
     {
         fired = true;
-        Rigidbody laserInstance = Instantiate(bulletRbdy, transform.position, transform.rotation) as Rigidbody;
-        laserInstance.velocity = transform.forward * laserSpeed * Time.deltaTime;
-        //fire the laser beam
-        //play laser noise
+        Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;
+        laserInstance.velocity = spawnLaser.forward * laserSpeed * Time.deltaTime;
     }
 }
