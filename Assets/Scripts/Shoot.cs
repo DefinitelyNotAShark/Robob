@@ -17,12 +17,14 @@ public class Shoot : MonoBehaviour {
 
     public int playerNumber = 1;
     public static  bool fired;
+    private GameObject[] robobChildren;
 
     string fireButton;
 
 	// Use this for initialization
 	void Start () {
         fireButton = "Fire" + playerNumber;
+        robobChildren = GameComponen
 	}
 
     // Update is called once per frame
@@ -39,5 +41,7 @@ public class Shoot : MonoBehaviour {
         fired = true;
         Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;
         laserInstance.velocity = spawnLaser.forward * laserSpeed * Time.deltaTime;
+
+        Physics.IgnoreCollision(bulletRbdy.GetComponent<Collider>(), )
     }
 }
