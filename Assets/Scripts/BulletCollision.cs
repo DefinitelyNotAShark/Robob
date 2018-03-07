@@ -27,8 +27,7 @@ public class BulletCollision : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)//when the laser hits something
-    {
-        Debug.Log("I HIT MYSELF I THKNK");
+    { 
         Collider[] colliders = Physics.OverlapSphere(transform.position, hitRadius, robobMask);
 
         for (int i = 0; i < colliders.Length; i++)//cycles through all collisions in the radius
@@ -37,6 +36,8 @@ public class BulletCollision : MonoBehaviour
 
             if (!targetRigidbody)//if there's no rigidbody, go to next iteration of loop
                 continue;
+
+            //find the tag and set a bool to true depending on the item it hit.
 
             Shoot targetStun = targetRigidbody.GetComponent<Shoot>();//finds the stun script on the rigidbody
 
