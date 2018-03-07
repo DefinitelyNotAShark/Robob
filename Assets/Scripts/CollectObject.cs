@@ -1,12 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectObject : MonoBehaviour {
 
-    private bool collectedWire;
-    private bool collectedGear;
-    private bool collectedBattery;
+    [SerializeField]
+    private GameObject iconSpawnPoint;
+
+    private bool collectedWire = false;
+    private bool collectedGear = false;
+    private bool collectedBattery = false;
+    private bool ableToCollectThings = true;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +21,7 @@ public class CollectObject : MonoBehaviour {
             {
                 Debug.Log("You collected a wire!");
                 collectedWire = true;
+                ableToCollectThings = false;
                 Destroy(gameObject);
             }
 
@@ -23,6 +29,7 @@ public class CollectObject : MonoBehaviour {
             {
                 Debug.Log("You collected a battery!");
                 collectedBattery = true;
+                ableToCollectThings = false;
                 Destroy(gameObject);
             }
 
@@ -30,8 +37,34 @@ public class CollectObject : MonoBehaviour {
             {
                 Debug.Log("You collected a gear!");
                 collectedGear = true;
+                ableToCollectThings = false;
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void Update()
+    {
+        CheckIfCollectedObject();
+    }
+
+    private void CheckIfCollectedObject()
+    {
+        if (collectedWire && ableToCollectThings)
+            ShowIcon(collectedWire);
+
+        if (collectedGear && ableToCollectThings)
+            ShowIcon(collectedGear);
+
+        if (collectedBattery && ableToCollectThings)
+            ShowIcon(collectedBattery);
+    }
+
+    private void ShowIcon(bool itemCollected)
+    {
+        if(itemCollected == collectedWire)
+        {
+
         }
     }
 }
