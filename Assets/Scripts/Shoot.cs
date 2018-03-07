@@ -8,7 +8,6 @@ public class Shoot : MonoBehaviour {
     [SerializeField]
     private int laserSpeed;
 
-
     [SerializeField]
     Rigidbody bulletRbdy;
 
@@ -16,16 +15,18 @@ public class Shoot : MonoBehaviour {
     Transform spawnLaser;
 
     public int playerNumber = 1;
+    private float currentLaunchForce;
     public static  bool fired;
-    private GameObject[] robobChildren;
+
+    //private GameObject[] robobChildren;// maybe if i need to ignore the collision
 
     string fireButton;
 
 	// Use this for initialization
 	void Start () {
         fireButton = "Fire" + playerNumber;
-        robobChildren = GameComponen
-	}
+        Physics.IgnoreCollision(bulletRbdy.GetComponent<Collider>(), GetComponent<Collider>());
+    }
 
     // Update is called once per frame
     void Update()
@@ -40,8 +41,7 @@ public class Shoot : MonoBehaviour {
     {
         fired = true;
         Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;
-        laserInstance.velocity = spawnLaser.forward * laserSpeed * Time.deltaTime;
 
-        Physics.IgnoreCollision(bulletRbdy.GetComponent<Collider>(), )
+        laserInstance.velocity = spawnLaser.forward * laserSpeed * Time.deltaTime;
     }
 }

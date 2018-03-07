@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4257283540905148}
-  - component: {fileID: 114948779020443504}
+  - component: {fileID: 114045563471142362}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114948779020443504
+--- !u!114 &114045563471142362
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -57,5 +57,13 @@ MonoBehaviour:
   robotPrefab: {fileID: 1409025366342914, guid: 6752f1dbc7f6fda4a876c54d426726b8,
     type: 2}
   Players:
-  - {fileID: 0}
-  - {fileID: 0}
+  - playerColor: {r: 1, g: 0, b: 0, a: 1}
+    robotSpawnPoint: {fileID: 0}
+    playerNumber: 0
+    coloredRobotText: 
+    Instance: {fileID: 0}
+  - playerColor: {r: 0, g: 0.25517225, b: 1, a: 1}
+    robotSpawnPoint: {fileID: 0}
+    playerNumber: 0
+    coloredRobotText: 
+    Instance: {fileID: 0}

@@ -4,29 +4,20 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class RobotManager : MonoBehaviour {
+public class RobotManager{
 
     public Color playerColor;
     public Transform robotSpawnPoint;
 
-    [HideInInspector]
-    public int playerNumber;
 
-    [HideInInspector]
-    public string coloredRobotText;
-
-    [HideInInspector]
-    public GameObject Instance;
+    [HideInInspector] public int playerNumber;
+    [HideInInspector] public string coloredRobotText;
+    [HideInInspector] public GameObject Instance;
 
     private MovePlayer playerMovement;
     private Shoot playerShooting;
     private GameObject canvasGameObject;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
     public void Setup()
     {
         playerMovement = Instance.GetComponent<MovePlayer>();

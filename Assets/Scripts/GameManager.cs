@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public int itemsToBring = 3;//change to 9 eventually
     public MoveCamera cameraControl;
     public GameObject robotPrefab;
+
     public RobotManager[] Players;
 
 	// Use this for initialization
@@ -22,7 +23,9 @@ public class GameManager : MonoBehaviour {
     {
         for(int i = 0; i < Players.Length; i++)
         {
-            Players[i].Instance = Instantiate(robotPrefab, Players[i].robotSpawnPoint.position, Players[i].robotSpawnPoint.rotation) as GameObject;
+            Players[i].Instance = 
+                Instantiate(robotPrefab, Players[i].robotSpawnPoint.position,
+                Players[i].robotSpawnPoint.rotation) as GameObject;
             Players[i].playerNumber = i + 1;
             Players[i].Setup();
         }

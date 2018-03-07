@@ -28,6 +28,7 @@ public class BulletCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)//when the laser hits something
     {
+        Debug.Log("I HIT MYSELF I THKNK");
         Collider[] colliders = Physics.OverlapSphere(transform.position, hitRadius, robobMask);
 
         for (int i = 0; i < colliders.Length; i++)//cycles through all collisions in the radius
