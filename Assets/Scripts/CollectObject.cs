@@ -2,69 +2,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CollectObject : MonoBehaviour {
 
-    [SerializeField]
-    private GameObject iconSpawnPoint;
+    public GameObject imagePanel;
+
+    public Sprite wireSprite;
+    public Sprite gearSprite;
+    public Sprite batterySprite;
+
+    private Image image;
 
     private bool collectedWire = false;
     private bool collectedGear = false;
     private bool collectedBattery = false;
     private bool ableToCollectThings = true;
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
+    {
+        image = imagePanel.GetComponent<Image>();
+    }
+
+    public void PullTrigger(Collider other, string tagName, GameObject thisObject)
     {
         if (other.gameObject.tag == "robot")
         {
-            if (this.gameObject.tag == "wire")
+            if (tagName == "wire" && ableToCollectThings)
             {
                 Debug.Log("You collected a wire!");
                 collectedWire = true;
+                image.sprite = wireSprite;
                 ableToCollectThings = false;
-                Destroy(gameObject);
+                Destroy(thisObject);
             }
 
-            if (this.gameObject.tag == "battery")
+            if (tagName == "battery" && ableToCollectThings)
             {
                 Debug.Log("You collected a battery!");
                 collectedBattery = true;
+                image.sprite = batterySprite;
                 ableToCollectThings = false;
-                Destroy(gameObject);
+                Destroy(thisObject);
             }
 
-            if (this.gameObject.tag == "gear")
+            if (tagName == "gear" && ableToCollectThings)
             {
                 Debug.Log("You collected a gear!");
                 collectedGear = true;
+                image.sprite = gearSprite;
                 ableToCollectThings = false;
-                Destroy(gameObject);
+                Destroy(thisObject);
             }
-        }
-    }
-
-    private void Update()
-    {
-        CheckIfCollectedObject();
-    }
-
-    private void CheckIfCollectedObject()
-    {
-        if (collectedWire && ableToCollectThings)
-            ShowIcon(collectedWire);
-
-        if (collectedGear && ableToCollectThings)
-            ShowIcon(collectedGear);
-
-        if (collectedBattery && ableToCollectThings)
-            ShowIcon(collectedBattery);
-    }
-
-    private void ShowIcon(bool itemCollected)
-    {
-        if(itemCollected == collectedWire)
-        {
-
         }
     }
 }

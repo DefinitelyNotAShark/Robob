@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 54806591636954100}
   - component: {fileID: 65238634534898736}
   - component: {fileID: 114000431045231096}
-  - component: {fileID: 114690405673118542}
   m_Layer: 0
   m_Name: Wires
   m_TagString: wire
@@ -83,17 +82,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
---- !u!114 &114690405673118542
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1254402625662984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a6364947a7184249b70a8dc115d65e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212559743451056970
 SpriteRenderer:
   m_ObjectHideFlags: 1
