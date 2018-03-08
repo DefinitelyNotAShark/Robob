@@ -32,6 +32,7 @@ public class CollectObject : MonoBehaviour {
             {
                 Debug.Log("You collected a wire!");
                 collectedWire = true;
+                image.enabled = true;
                 image.sprite = wireSprite;
                 ableToCollectThings = false;
                 Destroy(thisObject);
@@ -41,6 +42,7 @@ public class CollectObject : MonoBehaviour {
             {
                 Debug.Log("You collected a battery!");
                 collectedBattery = true;
+                image.enabled = true;
                 image.sprite = batterySprite;
                 ableToCollectThings = false;
                 Destroy(thisObject);
@@ -50,6 +52,7 @@ public class CollectObject : MonoBehaviour {
             {
                 Debug.Log("You collected a gear!");
                 collectedGear = true;
+                image.enabled = true;
                 image.sprite = gearSprite;
                 ableToCollectThings = false;
                 Destroy(thisObject);
