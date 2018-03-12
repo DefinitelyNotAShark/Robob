@@ -6,28 +6,38 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    public Text text;
+    //public Text text;//not yet
+
     public int itemsToBring = 3;//change to 9 eventually
     public MoveCamera cameraControl;
     public GameObject robotPrefab;
-
+    public GameObject inventoryUIPrefab;
+   
     public RobotManager[] Players;
 
-	// Use this for initialization
-	void Start () {
+    Quaternion zeroRot = new Quaternion(0, 0, 0, 0);
+    // Use this for initialization
+    void Start () {
         SpawnRobots();
         SetCameraTargets();
     }
 
     private void SpawnRobots()
     {
-        for(int i = 0; i < Players.Length; i++)
+        for (int i = 0; i < Players.Length; i++)
         {
             Players[i].Instance = 
                 Instantiate(robotPrefab, Players[i].robotSpawnPoint.position,
                 Players[i].robotSpawnPoint.rotation) as GameObject;
+
+            //set image
+            Players[i].imageInstance = Instantiate(inventoryUIPrefab, Players[i].rectTransform, false) as GameObject;
+           
             Players[i].playerNumber = i + 1;
             Players[i].Setup();
+
+
+            
         }
     }
 
