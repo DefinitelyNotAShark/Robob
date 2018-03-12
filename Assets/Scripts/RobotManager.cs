@@ -22,7 +22,7 @@ public class RobotManager{
     {
         playerMovement = Instance.GetComponent<MovePlayer>();
         playerShooting = Instance.GetComponent<Shoot>();
-        canvasGameObject = Instance.GetComponentInChildren<Canvas>().gameObject;
+        //canvasGameObject = Instance.GetComponentInChildren<Canvas>().gameObject;
 
         playerMovement.playerNumber = playerNumber;
         playerShooting.playerNumber = playerNumber;
