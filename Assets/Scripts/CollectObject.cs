@@ -8,19 +8,35 @@ public class CollectObject : MonoBehaviour {
 
     public GameObject imagePanel;
 
+    [HideInInspector]
+    public enum InventoryState { nothing, battery, gear, wire };
+
+    private InventoryState inventory;
+
+    [HideInInspector]
+    public InventoryState Inventory
+    {
+        get
+        {
+            return inventory;
+        }
+        private set
+        {
+            inventory = value;
+        }
+    } 
+
     public Sprite wireSprite;
     public Sprite gearSprite;
     public Sprite batterySprite;
 
     private Image image;
 
-    private bool collectedWire = false;
-    private bool collectedGear = false;
-    private bool collectedBattery = false;
     private bool ableToCollectThings = true;
 
     private void Start()
     {
+        inventory = InventoryState.nothing;
         image = imagePanel.GetComponent<Image>();
     }
 
@@ -31,7 +47,7 @@ public class CollectObject : MonoBehaviour {
             if (tagName == "wire" && ableToCollectThings)
             {
                 Debug.Log("You collected a wire!");
-                collectedWire = true;
+                inventory = InventoryState.wire;
                 image.enabled = true;
                 image.sprite = wireSprite;
                 ableToCollectThings = false;
@@ -41,7 +57,7 @@ public class CollectObject : MonoBehaviour {
             if (tagName == "battery" && ableToCollectThings)
             {
                 Debug.Log("You collected a battery!");
-                collectedBattery = true;
+                inventory = InventoryState.battery;
                 image.enabled = true;
                 image.sprite = batterySprite;
                 ableToCollectThings = false;
@@ -51,7 +67,7 @@ public class CollectObject : MonoBehaviour {
             if (tagName == "gear" && ableToCollectThings)
             {
                 Debug.Log("You collected a gear!");
-                collectedGear = true;
+                inventory = InventoryState.gear;
                 image.enabled = true;
                 image.sprite = gearSprite;
                 ableToCollectThings = false;

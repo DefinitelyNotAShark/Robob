@@ -19,6 +19,8 @@ public class RobotManager {
     [HideInInspector] public GameObject imageInstance;
     [HideInInspector] public RectTransform rectTransform;
 
+    [HideInInspector] public int points = 0;//gets added to individual player based on how many items they get to the overlord!
+
     private MovePlayer playerMovement;
     private Shoot playerShooting;
 

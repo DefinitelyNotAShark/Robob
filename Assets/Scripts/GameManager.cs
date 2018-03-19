@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     //public Text text;//not yet
 
     public int itemsToBring = 3;//change to 9 eventually
-    public MoveCamera cameraControl;
+    //public MoveCamera cameraControl;
     public GameObject robotPrefab;
     public GameObject inventoryUIPrefab;
    
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
             targets[i] = Players[i].Instance.transform; 
         }
 
-        cameraControl.Players = targets; 
+        //cameraControl.Players = targets; 
     }
 
 }
