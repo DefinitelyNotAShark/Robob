@@ -5,7 +5,8 @@ using System;
 using UnityEngine.UI;
 
 [Serializable]
-public class RobotManager {
+public class RobotManager
+{
 
     public Color playerColor;
     public Transform robotSpawnPoint;

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     public GameObject inventoryUIPrefab;
    
     public RobotManager[] Players;
+    PlayerInventory playerInventory;
 
     Quaternion zeroRot = new Quaternion(0, 0, 0, 0);
     // Use this for initialization
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour {
 
             //set image
             Players[i].imageInstance = Instantiate(inventoryUIPrefab, Players[i].rectTransform, false) as GameObject;
-           
+            Players[i].Instance.AddComponent<PlayerInventory>();
             Players[i].playerNumber = i + 1;
             Players[i].Setup();
 

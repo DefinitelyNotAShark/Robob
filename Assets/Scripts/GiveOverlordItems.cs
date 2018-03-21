@@ -11,11 +11,13 @@ public class GiveOverlordItems : MonoBehaviour {
     public Image spriteCanvas;
     private ItemWantedState itemState;
     private int itemNum;
+    ChangeOverlordColor colorChangeScript;
 
-    private RobotManager robotManager;
+    private PlayerInventory playerInventory;
 
 	// Use this for initialization
 	void Start () {
+        colorChangeScript = GetComponent<ChangeOverlordColor>();
         spriteCanvas = GetComponentInChildren<Image>();//this works now!
         spriteCanvas.enabled = false;
         StartCoroutine(BufferTimeBetweenChoosingItems());//wait 1 sec and then show item to get!
@@ -33,7 +35,8 @@ public class GiveOverlordItems : MonoBehaviour {
     {
         if (CheckIfItemMatches(collision))//if the player is carrying the right item, change item to ask for 
         {
-            CheckPlayerNumberToAssignPoints(collision);
+            StartCoroutine(colorChangeScript.CorrectAnswer());
+            //CheckPlayerNumberToAssignPoints(collision);
             StartCoroutine(BufferTimeBetweenChoosingItems());
         }
     }
@@ -64,24 +67,29 @@ public class GiveOverlordItems : MonoBehaviour {
     {
         if (collision.gameObject.tag == "robot")
         {
-            return true;
+            playerInventory = collision.gameObject.GetComponent<PlayerInventory>();//get the player's robot manager script
+
+            //check if robot has the correct item, if false, flash wrong answer color;;;;
+            if (playerInventory.Inventory.ToString() == itemState.ToString())//compare the strings of each state!
+            {
+                Debug.Log("You Have the " + itemState.ToString());
+                return true;
+            }
         }
-        //else be false
-        return false;
+        return false;//else be false
     }
 
-    private void CheckPlayerNumberToAssignPoints(Collision collision)
-    {
-        robotManager = collision.gameObject.GetComponent<RobotManager>();//get the player's robot manager script
-        if (robotManager.playerNumber == 1)//if player 1 collides
-        {
-            Debug.Log("Player 1 has " + robotManager.points);
-            robotManager.points++;
-        }
-        else if (robotManager.playerNumber == 2)
-        {
-            Debug.Log("Player 2 has " + robotManager.points);
-            robotManager.points++;
-        }
-    }
+    //private void CheckPlayerNumberToAssignPoints(Collision collision)
+    //{
+    //    if (robotManager.playerNumber == 1)//if player 1 collides
+    //    {
+    //        Debug.Log("Player 1 has " + robotManager.points);
+    //        robotManager.points++;
+    //    }
+    //    else if (robotManager.playerNumber == 2)
+    //    {
+    //        Debug.Log("Player 2 has " + robotManager.points);
+    //        robotManager.points++;
+    //    }
+    //}
 }

@@ -7,28 +7,13 @@ using UnityEngine.UI;
 public class CollectObject : MonoBehaviour {
 
     public GameObject imagePanel;
-
-    [HideInInspector]
-    public enum InventoryState { nothing, battery, gear, wire };
-
-    private InventoryState inventory;
-
-    [HideInInspector]
-    public InventoryState Inventory
-    {
-        get
-        {
-            return inventory;
-        }
-        private set
-        {
-            inventory = value;
-        }
-    } 
+    private RobotManager robotManager;
 
     public Sprite wireSprite;
     public Sprite gearSprite;
     public Sprite batterySprite;
+
+    PlayerInventory playerInventory;
 
     private Image image;
 
@@ -36,7 +21,6 @@ public class CollectObject : MonoBehaviour {
 
     private void Start()
     {
-        inventory = InventoryState.nothing;
         image = imagePanel.GetComponent<Image>();
     }
 
@@ -44,10 +28,12 @@ public class CollectObject : MonoBehaviour {
     {
         if (other.gameObject.tag == "robot")
         {
+            playerInventory = other.gameObject.GetComponent<PlayerInventory>();//gets the robot manager in the collision 
+
             if (tagName == "wire" && ableToCollectThings)
             {
-                Debug.Log("You collected a wire!");
-                inventory = InventoryState.wire;
+                playerInventory.Inventory = PlayerInventory.InventoryState.wire;
+
                 image.enabled = true;
                 image.sprite = wireSprite;
                 ableToCollectThings = false;
@@ -56,8 +42,8 @@ public class CollectObject : MonoBehaviour {
 
             if (tagName == "battery" && ableToCollectThings)
             {
-                Debug.Log("You collected a battery!");
-                inventory = InventoryState.battery;
+                playerInventory.Inventory = PlayerInventory.InventoryState.battery;
+
                 image.enabled = true;
                 image.sprite = batterySprite;
                 ableToCollectThings = false;
@@ -66,8 +52,8 @@ public class CollectObject : MonoBehaviour {
 
             if (tagName == "gear" && ableToCollectThings)
             {
-                Debug.Log("You collected a gear!");
-                inventory = InventoryState.gear;
+                playerInventory.Inventory = PlayerInventory.InventoryState.gear;
+
                 image.enabled = true;
                 image.sprite = gearSprite;
                 ableToCollectThings = false;
