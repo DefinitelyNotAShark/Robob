@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class CollectObject : MonoBehaviour {
 
-    public GameObject imagePanel;
-    private RobotManager robotManager;
+    [SerializeField]
+    private RectTransform imagePanel;
 
     public Sprite wireSprite;
     public Sprite gearSprite;
@@ -21,44 +21,42 @@ public class CollectObject : MonoBehaviour {
 
     private void Start()
     {
-        image = imagePanel.GetComponent<Image>();
+        image = imagePanel.GetComponentInChildren<Image>();
     }
 
     public void PullTrigger(Collider other, string tagName, GameObject thisObject)
     {
-        if (other.gameObject.tag == "robot")
+        playerInventory = other.gameObject.GetComponent<PlayerInventory>();//gets the robot manager in the collision 
+
+        if (tagName == "wire" && playerInventory.ableToCollectThings)
         {
-            playerInventory = other.gameObject.GetComponent<PlayerInventory>();//gets the robot manager in the collision 
+            playerInventory.Inventory = PlayerInventory.InventoryState.wire;
 
-            if (tagName == "wire" && ableToCollectThings)
-            {
-                playerInventory.Inventory = PlayerInventory.InventoryState.wire;
-
-                image.enabled = true;
-                image.sprite = wireSprite;
-                ableToCollectThings = false;
-                Destroy(thisObject);
-            }
-
-            if (tagName == "battery" && ableToCollectThings)
-            {
-                playerInventory.Inventory = PlayerInventory.InventoryState.battery;
-
-                image.enabled = true;
-                image.sprite = batterySprite;
-                ableToCollectThings = false;
-                Destroy(thisObject);
-            }
-
-            if (tagName == "gear" && ableToCollectThings)
-            {
-                playerInventory.Inventory = PlayerInventory.InventoryState.gear;
-
-                image.enabled = true;
-                image.sprite = gearSprite;
-                ableToCollectThings = false;
-                Destroy(thisObject);
-            }
+            image.enabled = true;
+            image.sprite = wireSprite;
+            playerInventory.ableToCollectThings = false;
+            Destroy(thisObject);
         }
+
+        if (tagName == "battery" && playerInventory.ableToCollectThings)
+        {
+            playerInventory.Inventory = PlayerInventory.InventoryState.battery;
+
+            image.enabled = true;
+            image.sprite = batterySprite;
+            playerInventory.ableToCollectThings = false;
+            Destroy(thisObject);
+        }
+
+        if (tagName == "gear" && ableToCollectThings)
+        {
+            playerInventory.Inventory = PlayerInventory.InventoryState.gear;
+
+            image.enabled = true;
+            image.sprite = gearSprite;
+            playerInventory.ableToCollectThings = false;
+            Destroy(thisObject);
+        }
+
     }
 }

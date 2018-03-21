@@ -2082,6 +2082,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114517252664840784, guid: 94dfac7856278b9489f4eb869e509fab,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 94dfac7856278b9489f4eb869e509fab, type: 2}
   m_IsPrefabParent: 0
@@ -2412,7 +2417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6364947a7184249b70a8dc115d65e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagePanel: {fileID: 1958330086124148, guid: 94dfac7856278b9489f4eb869e509fab, type: 2}
+  imagePanel: {fileID: 1925684956}
   wireSprite: {fileID: 21300000, guid: 949fc343710af8647a42dcdf1a52fde5, type: 3}
   gearSprite: {fileID: 21300000, guid: 3b4db22c5dce8fc40b29e5d05e504a8c, type: 3}
   batterySprite: {fileID: 21300000, guid: 6e5d70a0ff688874eb1630c052e89933, type: 3}
@@ -3506,6 +3511,11 @@ Prefab:
 --- !u!1 &1925684955 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1958330086124148, guid: 94dfac7856278b9489f4eb869e509fab,
+    type: 2}
+  m_PrefabInternal: {fileID: 1265767970}
+--- !u!224 &1925684956 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224989642678378314, guid: 94dfac7856278b9489f4eb869e509fab,
     type: 2}
   m_PrefabInternal: {fileID: 1265767970}
 --- !u!1001 &1926247220

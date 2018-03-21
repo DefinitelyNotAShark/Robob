@@ -16,15 +16,22 @@ public class SpawnItems : MonoBehaviour
     private List<Transform> gearSpawnPoints;
     private List<Transform> batterySpawnPoints;
 
+    private List<GameObject> objectsToDestroy;
+
     private Transform wireSpawnPoint;
     private Transform gearSpawnPoint;
     private Transform batterySpawnPoint;
+
+    private GameObject batteryObject;
+    private GameObject gearObject;
+    private GameObject wireObject;
 
     private void Start()
     {
         wireSpawnPoints = new List<Transform>();
         gearSpawnPoints = new List<Transform>();
         batterySpawnPoints = new List<Transform>();
+        objectsToDestroy = new List<GameObject>();
 
         AddSpawnPoints();//adds spawn points to the list
         PickRandomSpawnPoints();
@@ -46,11 +53,19 @@ public class SpawnItems : MonoBehaviour
         }
     }
 
-    private void SpawnAtRandomPoint(Transform wire, Transform gear, Transform battery)
+    public void SpawnAtRandomPoint(Transform wire, Transform gear, Transform battery)//spawn items and add to list of objects created
     {
-        (Instantiate(wirePrefab, wire.position, wire.rotation) as GameObject).transform.parent = wireSpawnPoint.transform;
-        (Instantiate(gearPrefab, gear.position, gear.rotation) as GameObject).transform.parent = gearSpawnPoint.transform;
-        (Instantiate(batteryPrefab, battery.position, battery.rotation) as GameObject).transform.parent = batterySpawnPoint.transform;
+        wireObject = (Instantiate(wirePrefab, wire.position, wire.rotation) as GameObject);//make the object and set it to ref to gameObject
+        wireObject.transform.parent = wireSpawnPoint.transform;//set the object's transform to the spawn point
+        objectsToDestroy.Add(wireObject);//add object to list of objects to destroy
+
+        gearObject = (Instantiate(gearPrefab, gear.position, gear.rotation) as GameObject);//do the same to the rest
+        gearObject.transform.parent = gearSpawnPoint.transform;
+        objectsToDestroy.Add(gearObject);
+
+        batteryObject = (Instantiate(batteryPrefab, battery.position, battery.rotation) as GameObject);
+        batteryObject.transform.parent = batterySpawnPoint.transform;
+        objectsToDestroy.Add(batteryObject);
     }
 
     void PickRandomSpawnForWire()
@@ -71,10 +86,21 @@ public class SpawnItems : MonoBehaviour
         batterySpawnPoint = batterySpawnPoints[batteryInt];
     }
 
-    void PickRandomSpawnPoints()
+    public void PickRandomSpawnPoints()
     {
         PickRandomSpawnForWire();//get all them spawn points
         PickRandomSpawnForBattery();
         PickRandomSpawnForGear();
+    }
+
+    public void RespawnItems()
+    {
+        foreach (GameObject g in objectsToDestroy)
+        {
+            Destroy(g);
+        }
+
+        PickRandomSpawnPoints();
+        SpawnAtRandomPoint(wireSpawnPoint, gearSpawnPoint, batterySpawnPoint);
     }
 }

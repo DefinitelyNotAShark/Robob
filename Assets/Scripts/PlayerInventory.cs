@@ -8,7 +8,10 @@ public class PlayerInventory : MonoBehaviour
     public enum InventoryState { nothing, battery, gear, wire, };//this doesn't really work for player!
 
     private InventoryState inventory;
+    [HideInInspector]
     public InventoryState Inventory { get { return inventory; } set { inventory = value; } }
+    [HideInInspector]
+    public bool ableToCollectThings;
 
     private void Start()
     {

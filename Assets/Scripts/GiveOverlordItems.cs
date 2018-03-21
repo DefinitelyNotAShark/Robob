@@ -13,10 +13,12 @@ public class GiveOverlordItems : MonoBehaviour {
     private int itemNum;
     ChangeOverlordColor colorChangeScript;
 
+    private SpawnItems spawn;
     private PlayerInventory playerInventory;
 
 	// Use this for initialization
 	void Start () {
+        spawn = GetComponent<SpawnItems>();
         colorChangeScript = GetComponent<ChangeOverlordColor>();
         spriteCanvas = GetComponentInChildren<Image>();//this works now!
         spriteCanvas.enabled = false;
@@ -35,10 +37,20 @@ public class GiveOverlordItems : MonoBehaviour {
     {
         if (CheckIfItemMatches(collision))//if the player is carrying the right item, change item to ask for 
         {
+            Debug.Log("that was the correct item!");
             StartCoroutine(colorChangeScript.CorrectAnswer());
             //CheckPlayerNumberToAssignPoints(collision);
             StartCoroutine(BufferTimeBetweenChoosingItems());
+            spawn.RespawnItems();
+            playerInventory.ableToCollectThings = true;//set you to be able to collect things again
         }
+
+        else
+        {
+            StartCoroutine(colorChangeScript.WrongAnswer());//if you give the dude the wrong item, he flash red 
+            //clear inventory
+        }
+
     }
 
 
@@ -65,18 +77,15 @@ public class GiveOverlordItems : MonoBehaviour {
 
     private bool CheckIfItemMatches(Collision collision)
     {
-        if (collision.gameObject.tag == "robot")
+        if (collision.gameObject.tag == "robot")//check if robot has the correct item, if false, flash wrong answer color;;;;
         {
             playerInventory = collision.gameObject.GetComponent<PlayerInventory>();//get the player's robot manager script
-
-            //check if robot has the correct item, if false, flash wrong answer color;;;;
             if (playerInventory.Inventory.ToString() == itemState.ToString())//compare the strings of each state!
             {
-                Debug.Log("You Have the " + itemState.ToString());
                 return true;
             }
         }
-        return false;//else be false
+        return false;
     }
 
     //private void CheckPlayerNumberToAssignPoints(Collision collision)
