@@ -16,7 +16,8 @@ public class SpawnItems : MonoBehaviour
     private List<Transform> gearSpawnPoints;
     private List<Transform> batterySpawnPoints;
 
-    private List<GameObject> objectsToDestroy;
+    [HideInInspector]
+    public List<GameObject> objectsToDestroy;
 
     private Transform wireSpawnPoint;
     private Transform gearSpawnPoint;
@@ -99,7 +100,6 @@ public class SpawnItems : MonoBehaviour
         {
             Destroy(g);
         }
-
         PickRandomSpawnPoints();
         SpawnAtRandomPoint(wireSpawnPoint, gearSpawnPoint, batterySpawnPoint);
     }

@@ -10,6 +10,7 @@ public class PlayerInventory : MonoBehaviour
     private InventoryState inventory;
     [HideInInspector]
     public InventoryState Inventory { get { return inventory; } set { inventory = value; } }
+
     [HideInInspector]
     public bool ableToCollectThings;
 

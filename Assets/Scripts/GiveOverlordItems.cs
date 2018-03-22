@@ -18,7 +18,7 @@ public class GiveOverlordItems : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        spawn = GetComponent<SpawnItems>();
+        spawn = GetComponent<SpawnItems>() as SpawnItems;//MOTHERFUCKR
         colorChangeScript = GetComponent<ChangeOverlordColor>();
         spriteCanvas = GetComponentInChildren<Image>();//this works now!
         spriteCanvas.enabled = false;
@@ -41,14 +41,15 @@ public class GiveOverlordItems : MonoBehaviour {
             StartCoroutine(colorChangeScript.CorrectAnswer());
             //CheckPlayerNumberToAssignPoints(collision);
             StartCoroutine(BufferTimeBetweenChoosingItems());
-            spawn.RespawnItems();
             playerInventory.ableToCollectThings = true;//set you to be able to collect things again
+            spawn.RespawnItems();
         }
 
         else
         {
             StartCoroutine(colorChangeScript.WrongAnswer());//if you give the dude the wrong item, he flash red 
-            //clear inventory
+            playerInventory.ableToCollectThings = true;//set you to be able to collect things again
+            playerInventory.Inventory = PlayerInventory.InventoryState.nothing;
         }
 
     }
