@@ -40,8 +40,8 @@ public class Shoot : MonoBehaviour {
     private void Fire()
     {
         fired = true;
-        Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;
+        Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;//its' not this that is being the bitch
 
-        laserInstance.velocity = spawnLaser.forward * laserSpeed * Time.deltaTime;
+        laserInstance.velocity = GetComponentInParent<Transform>().forward * laserSpeed * Time.deltaTime;
     }
 }

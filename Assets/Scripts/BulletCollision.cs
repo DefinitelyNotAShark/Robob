@@ -9,10 +9,7 @@ public class BulletCollision : MonoBehaviour
     LayerMask robobMask;
 
     [SerializeField]
-    ParticleSystem laserZap;
-
-    [SerializeField]
-    float lifeTime = 2.0f;
+    float lifeTime = 4.0f;
 
     [SerializeField]
     float hitRadius = 1f;
@@ -22,13 +19,12 @@ public class BulletCollision : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        laserZap.Stop();
         Destroy(gameObject, lifeTime);
     }
 
     private void OnTriggerEnter(Collider other)//when the laser hits something
     { 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, hitRadius, robobMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, hitRadius, robobMask);//this is a stupid way of doing things and im gonna change it!
 
         for (int i = 0; i < colliders.Length; i++)//cycles through all collisions in the radius
         {
@@ -40,13 +36,13 @@ public class BulletCollision : MonoBehaviour
             //find the tag and set a bool to true depending on the item it hit.
 
             Shoot targetStun = targetRigidbody.GetComponent<Shoot>();//finds the stun script on the rigidbody
+            playerMovement = targetRigidbody.GetComponent<MovePlayer>();
 
             if (!targetStun)//if there's no stun script, go to next iteration of loop
                 continue;
 
             Debug.Log("I hit another player!!!");
-            StartCoroutine("Stun");//stuns player
-            Destroy(laserZap.gameObject, laserZap.main.duration);//destroys particles after animation finishes
+            StartCoroutine(Stun());//stuns player
             Destroy(gameObject);
             Shoot.fired = false;
         }
@@ -54,10 +50,9 @@ public class BulletCollision : MonoBehaviour
 
     private IEnumerator Stun()
     {
-        laserZap.Play();
         playerMovement.enabled = false;
         Debug.Log("Stunned");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         playerMovement.enabled = true;
         Debug.Log("Not Stunned");
     }
