@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject robotPrefab; 
+    public GameObject robotPrefab;
     public RobotManager[] Players;
+
+    private GameObject inventoryImage;
 
     void Start ()
     {

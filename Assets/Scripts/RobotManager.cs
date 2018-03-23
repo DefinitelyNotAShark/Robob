@@ -9,7 +9,6 @@ public class RobotManager
 {
     public Color playerColor;
     public Transform robotSpawnPoint;
-
     public Canvas myCanvas;
 
     [HideInInspector] public int playerNumber;
@@ -21,15 +20,19 @@ public class RobotManager
 
     private MovePlayer playerMovement;
     private Shoot playerShooting;
+    private SetUIForPlayers playerUI;
 
 
     public void Setup()
     {
         playerMovement = Instance.GetComponent<MovePlayer>();
         playerShooting = Instance.GetComponent<Shoot>();
+        playerUI = Instance.GetComponent<SetUIForPlayers>();
 
         playerMovement.playerNumber = playerNumber;
         playerShooting.playerNumber = playerNumber;
+        playerUI.playerNumber = playerNumber;
+        playerUI.inventoryColor = playerColor;
 
         coloredRobotText = "<color=#" + ColorUtility.ToHtmlStringRGB(playerColor) + ">player " + playerNumber + "</color>";
 
