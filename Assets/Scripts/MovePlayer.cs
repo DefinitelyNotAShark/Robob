@@ -23,7 +23,7 @@ public class MovePlayer : MonoBehaviour {
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();//dont split up turn and move. Have it turn BASED ON MOVE
     }
     // Use this for initialization
     void Start ()
@@ -40,8 +40,8 @@ public class MovePlayer : MonoBehaviour {
 
         if (xboxOneController == 1)
         {
-            movementAxisName = "TempVertical" + playerNumber;
-            turnAxisName = "TempHorizontal" + playerNumber;
+            movementAxisName = "ControllerVertical" + playerNumber;
+            turnAxisName = "ControllerHorizontal" + playerNumber;
         }
         else
         {
@@ -74,7 +74,9 @@ public class MovePlayer : MonoBehaviour {
     {
         // Move and turn player
         Move();
-        Turn();
+
+        if (xboxOneController == 0)//only do turn if the controller isn't connected
+            Turn();
     }
 
     private void Turn()
@@ -88,7 +90,19 @@ public class MovePlayer : MonoBehaviour {
 
     private void Move()
     {
-        Vector3 movement = transform.forward * movementInputValue * speed * Time.deltaTime;//sets a vector3 to forward times input value
-        rigidbody.MovePosition(rigidbody.position + movement);//moves my rigidbody the vector3
+        if (xboxOneController == 0)
+        {
+            Vector3 movement = transform.forward * movementInputValue * speed * Time.deltaTime;//sets a vector3 to forward times input value
+            rigidbody.MovePosition(rigidbody.position + movement);//moves my rigidbody the vector3
+        }
+
+        else if(xboxOneController == 1)
+        {
+            Vector3 movement = new Vector3(turnInputValue, 0, movementInputValue);//this should move normally
+
+            //All i have to do now is get the robot to turn the direction it's moving in
+            transform.rotation = Quaternion.LookRotation(movement);
+            rigidbody.MovePosition(rigidbody.position + movement * speed * Time.deltaTime);//i really hope this moves normally.
+        }
     }
 }
