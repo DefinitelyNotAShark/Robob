@@ -21,6 +21,7 @@ public class RobotManager
     private MovePlayer playerMovement;
     private Shoot playerShooting;
     private SetUIForPlayers playerUI;
+    private PointSystem pointSystem;
 
 
     public void Setup()
@@ -28,10 +29,12 @@ public class RobotManager
         playerMovement = Instance.GetComponent<MovePlayer>();
         playerShooting = Instance.GetComponent<Shoot>();
         playerUI = Instance.GetComponent<SetUIForPlayers>();
+        pointSystem = Instance.GetComponent<PointSystem>();
 
         playerMovement.playerNumber = playerNumber;
         playerShooting.playerNumber = playerNumber;
         playerUI.playerNumber = playerNumber;
+        pointSystem.playerNumber = playerNumber;//please work!!!
         playerUI.inventoryColor = playerColor;
 
         coloredRobotText = "<color=#" + ColorUtility.ToHtmlStringRGB(playerColor) + ">player " + playerNumber + "</color>";

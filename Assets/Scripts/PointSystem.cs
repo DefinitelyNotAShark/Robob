@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PointSystem : MonoBehaviour {
 
@@ -9,20 +10,13 @@ public class PointSystem : MonoBehaviour {
     public int points = 0;
 
     [HideInInspector]
-    public int amountOfPointsTillWin = 3;
+    public int amountOfPointsTillWin = 6;
 
-    public void AddPoints(int pointAmount)
-    {
-        points += pointAmount;
-    }
+    public int playerNumber = 0;
 
-    public bool CheckIfWin(int pointAmount)
+    private void Update()
     {
-        if (points == pointAmount)
-        {
-            return true;
-        }
-        else return false;
+        CheckIfWin();
     }
 
     public bool CheckIfUpgrade(int pointAmount)
@@ -32,5 +26,18 @@ public class PointSystem : MonoBehaviour {
             return true;
         }
         else return false;
+    }
+    public void AddPoints(int pointAmount)
+    {
+        points += pointAmount;
+    }
+
+    private void CheckIfWin()
+    {
+        if (points == amountOfPointsTillWin)
+        {
+            //check player number//if player number is one, get first win screen. If number is 2 get second win screen
+            SceneManager.LoadScene("WinScene" + playerNumber);
+        }
     }
 }
