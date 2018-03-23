@@ -4,21 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
 public class SetUIForPlayers : MonoBehaviour {
 
-    public Color playerColor;
-
-    private Image locLeft;
-    private Image locRight;
+    [SerializeField]
+    private Image imagePanel;
 
     // Use this for initialization
-    void Start () {
-		
-	}
+    void Start ()
+    {
+       
+    }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GiveOverlordItems : MonoBehaviour {
@@ -13,12 +14,28 @@ public class GiveOverlordItems : MonoBehaviour {
     private int itemNum;
     ChangeOverlordColor colorChangeScript;
 
+
+    [SerializeField]
+    private GameObject overlord1;
+    [SerializeField]
+    private GameObject overlord2;
+    [SerializeField]
+    private GameObject overlord3;
+    [SerializeField]
+    private GameObject overlord4;
+
     private SpawnItems spawn;
     private PlayerInventory playerInventory;
+    private PointSystem pointSystem;
 
-	// Use this for initialization
-	void Start () {
-        spawn = GetComponent<SpawnItems>() as SpawnItems;//MOTHERFUCKR
+    private int overlordItemAmount = 0;
+    private int amountTillFirstUpgrade = 2;
+    private int amountTillSecondUpgrade = 4;
+    private int amountTillThirdUpgrade = 6;
+
+    // Use this for initialization
+    void Start () {
+        spawn = FindObjectOfType<SpawnItems>();
         colorChangeScript = GetComponent<ChangeOverlordColor>();
         spriteCanvas = GetComponentInChildren<Image>();//this works now!
         spriteCanvas.enabled = false;
@@ -29,6 +46,7 @@ public class GiveOverlordItems : MonoBehaviour {
     {
         spriteCanvas.enabled = false;
         yield return new WaitForSeconds(1);
+        CheckForOverlordChanges();//check for change after color is shown
         ChooseRandomItem();
         spriteCanvas.enabled = true;
     }
@@ -37,21 +55,21 @@ public class GiveOverlordItems : MonoBehaviour {
     {
         if (CheckIfItemMatches(collision))//if the player is carrying the right item, change item to ask for 
         {
-            Debug.Log("that was the correct item!");
-            StartCoroutine(colorChangeScript.CorrectAnswer());
-            //CheckPlayerNumberToAssignPoints(collision);
+            overlordItemAmount++;
+            StartCoroutine(colorChangeScript.CorrectAnswer());//turn green
+            pointSystem.AddPoints(1);
             StartCoroutine(BufferTimeBetweenChoosingItems());
-            playerInventory.ableToCollectThings = true;//set you to be able to collect things again
-            spawn.RespawnItems();
+            spawn.GetComponent<SpawnItems>().RespawnItems();//this is still nulllllll!
         }
 
         else
         {
             StartCoroutine(colorChangeScript.WrongAnswer());//if you give the dude the wrong item, he flash red 
-            playerInventory.ableToCollectThings = true;//set you to be able to collect things again
-            playerInventory.Inventory = PlayerInventory.InventoryState.nothing;
+            CheckForOverlordChanges();
         }
 
+        playerInventory.ableToCollectThings = true;//set you to be able to collect things again
+        playerInventory.Inventory = PlayerInventory.InventoryState.nothing;//i also need to change the item state back to nothing
     }
 
 
@@ -81,6 +99,7 @@ public class GiveOverlordItems : MonoBehaviour {
         if (collision.gameObject.tag == "robot")//check if robot has the correct item, if false, flash wrong answer color;;;;
         {
             playerInventory = collision.gameObject.GetComponent<PlayerInventory>();//get the player's robot manager script
+            pointSystem = collision.gameObject.GetComponent<PointSystem>();//get the robot's point system script
             if (playerInventory.Inventory.ToString() == itemState.ToString())//compare the strings of each state!
             {
                 return true;
@@ -89,17 +108,34 @@ public class GiveOverlordItems : MonoBehaviour {
         return false;
     }
 
-    //private void CheckPlayerNumberToAssignPoints(Collision collision)
-    //{
-    //    if (robotManager.playerNumber == 1)//if player 1 collides
-    //    {
-    //        Debug.Log("Player 1 has " + robotManager.points);
-    //        robotManager.points++;
-    //    }
-    //    else if (robotManager.playerNumber == 2)
-    //    {
-    //        Debug.Log("Player 2 has " + robotManager.points);
-    //        robotManager.points++;
-    //    }
-    //}
+    private void CheckForOverlordChanges()
+    {
+        if (overlordItemAmount == amountTillFirstUpgrade)//checks for first upgrade
+        {
+            ChangeActiveOverlord(false, true, false, false);
+            colorChangeScript.GoBackToNormal();
+        }
+
+        else if (overlordItemAmount == amountTillSecondUpgrade)//checks for second upgrade
+        {
+            ChangeActiveOverlord(false, false, true, false);
+            colorChangeScript.GoBackToNormal();
+        }
+
+        else if (overlordItemAmount == amountTillThirdUpgrade)//checks for second upgrade
+        {
+            ChangeActiveOverlord(false, false, false, true);
+            colorChangeScript.GoBackToNormal();
+        }
+    }
+
+    private void ChangeActiveOverlord(bool overlord1Active, bool overlord2Active, bool overlord3Active, bool overlord4Active)
+    {
+        overlord1.SetActive(overlord1Active);
+        overlord2.SetActive(overlord2Active);
+        overlord3.SetActive(overlord3Active);
+        overlord4.SetActive(overlord4Active);
+    }
+
 }
+

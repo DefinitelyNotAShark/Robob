@@ -6,21 +6,12 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    //public Text text;//not yet
-
-    public int itemsToBring = 3;//change to 9 eventually
-    //public MoveCamera cameraControl;
-    public GameObject robotPrefab;
-    public GameObject inventoryUIPrefab;
-   
+    public GameObject robotPrefab; 
     public RobotManager[] Players;
-    PlayerInventory playerInventory;
 
-    Quaternion zeroRot = new Quaternion(0, 0, 0, 0);
-    // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         SpawnRobots();
-        SetCameraTargets();
     }
 
     private void SpawnRobots()
@@ -31,27 +22,11 @@ public class GameManager : MonoBehaviour {
                 Instantiate(robotPrefab, Players[i].robotSpawnPoint.position,
                 Players[i].robotSpawnPoint.rotation) as GameObject;
 
-            //set image
-            Players[i].imageInstance = Instantiate(inventoryUIPrefab, Players[i].rectTransform, false) as GameObject;
-            Players[i].Instance.AddComponent<PlayerInventory>();
+            Players[i].Instance.AddComponent<PlayerInventory>();//give each player an inventory
+            Players[i].Instance.AddComponent<PointSystem>();//give each player a point system
+            Players[i].Instance.AddComponent<SetUIForPlayers>();//give each player an Inventory??
             Players[i].playerNumber = i + 1;
-            Players[i].Setup();
-
-
-            
+            Players[i].Setup();           
         }
     }
-
-    private void SetCameraTargets()
-    {
-        Transform[] targets = new Transform[Players.Length];//makes a transform for each robot
-
-        for(int i = 0; i < targets.Length; i++)
-        {
-            targets[i] = Players[i].Instance.transform; 
-        }
-
-        //cameraControl.Players = targets; 
-    }
-
 }

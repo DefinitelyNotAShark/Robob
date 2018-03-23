@@ -7,7 +7,6 @@ using UnityEngine.UI;
 [Serializable]
 public class RobotManager
 {
-
     public Color playerColor;
     public Transform robotSpawnPoint;
 
@@ -20,27 +19,12 @@ public class RobotManager
     [HideInInspector] public GameObject imageInstance;
     [HideInInspector] public RectTransform rectTransform;
 
-    [HideInInspector] public int points = 0;//gets added to individual player based on how many items they get to the overlord!
-
     private MovePlayer playerMovement;
     private Shoot playerShooting;
 
 
     public void Setup()
     {
-        rectTransform = imageInstance.GetComponentInChildren<RectTransform>();//this is where I set my position
-        rectTransform.SetParent(myCanvas.transform);
-
-        if (playerNumber == 1)
-        {
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
-
-        else if (playerNumber == 2)
-        {
-            rectTransform.offsetMin = new Vector2(Screen.width, 0);
-        }
-
         playerMovement = Instance.GetComponent<MovePlayer>();
         playerShooting = Instance.GetComponent<Shoot>();
 
@@ -55,6 +39,5 @@ public class RobotManager
         {
             renderers[i].material.color = playerColor;
         }
-
     }
 }

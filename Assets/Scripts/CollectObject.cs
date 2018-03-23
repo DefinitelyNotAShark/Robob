@@ -15,19 +15,29 @@ public class CollectObject : MonoBehaviour {
 
     PlayerInventory playerInventory;
 
+    private Image[] images;
     private Image image;
-
-    private bool ableToCollectThings = true;
 
     private void Start()
     {
-        image = imagePanel.GetComponentInChildren<Image>();
+        images = imagePanel.GetComponentsInChildren<Image>();
+        foreach (Image a in images)
+        {
+            if(a.gameObject.name == ("PanelImage"))
+            {
+                image = a;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        CheckClearInventoryUI();
     }
 
     public void PullTrigger(Collider other, string tagName, GameObject thisObject)
     {
         playerInventory = other.gameObject.GetComponent<PlayerInventory>();//gets the robot manager in the collision 
-
         if (tagName == "wire" && playerInventory.ableToCollectThings)
         {
             playerInventory.Inventory = PlayerInventory.InventoryState.wire;
@@ -48,7 +58,7 @@ public class CollectObject : MonoBehaviour {
             Destroy(thisObject);
         }
 
-        if (tagName == "gear" && ableToCollectThings)
+        if (tagName == "gear" && playerInventory.ableToCollectThings)
         {
             playerInventory.Inventory = PlayerInventory.InventoryState.gear;
 
@@ -58,5 +68,13 @@ public class CollectObject : MonoBehaviour {
             Destroy(thisObject);
         }
 
+    }
+
+    void CheckClearInventoryUI()//only for one player check player!!!
+    {
+        if (playerInventory.Inventory == PlayerInventory.InventoryState.nothing)
+        {
+            image.enabled = false;
+        }
     }
 }

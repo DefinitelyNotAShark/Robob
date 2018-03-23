@@ -14,15 +14,38 @@ public class ChangeOverlordColor : MonoBehaviour {
     [SerializeField]
     public Color wrongColor;
 
+    [HideInInspector]
     public MeshRenderer[] renderers;
 
+    public ParticleSystem particleSystem;
+    public ParticleSystem secondParticleSystem;
+
 	// Use this for initialization
-	void Start ()
+	void Awake()
     {
         renderers = GetComponentsInChildren<MeshRenderer>();
         for(int i = 0; i < renderers.Length; i++)
         {
             renderers[i].material.color = normalColor;
+        }
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Sparks());
+    }
+
+    private IEnumerator Sparks()
+    {
+        for (; ; )
+        {
+            particleSystem.Play();
+            yield return new WaitForSeconds(.5f);
+            secondParticleSystem.Play();
+            yield return new WaitForSeconds(.5f);
+            particleSystem.Stop();
+            secondParticleSystem.Stop();
+            yield return new WaitForSeconds(8);
         }
     }
 
@@ -47,22 +70,13 @@ public class ChangeOverlordColor : MonoBehaviour {
         GoBackToNormal();
     }
 
-    void GoBackToNormal()
+    public void GoBackToNormal()
     {
+        renderers = GetComponentsInChildren<MeshRenderer>();
+
         for (int i = 0; i < renderers.Length; i++)
         {
             renderers[i].material.color = normalColor;
         }
-    }
-
-    private void Update()
-    {
-        CheckIfNeedToChangeColor();
-    }
-
-    private void CheckIfNeedToChangeColor()
-    {
-        //if correct item was given, start coroutine right answer
-        //else if wrong item was given, start coroutine wrong answer
     }
 }

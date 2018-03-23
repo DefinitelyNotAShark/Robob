@@ -7,8 +7,7 @@ public class PointSystem : MonoBehaviour {
 
     [HideInInspector]
     public int points = 0;
-    [HideInInspector]
-    public int amountOfPointsTillUpgrade = 1;
+
     [HideInInspector]
     public int amountOfPointsTillWin = 3;
 
@@ -17,13 +16,7 @@ public class PointSystem : MonoBehaviour {
         points += pointAmount;
     }
 
-    private void Update()
-    {
-        CheckIfUpgrade(amountOfPointsTillUpgrade);
-        CheckIfWin(amountOfPointsTillWin);
-    }
-
-    private bool CheckIfWin(int pointAmount)
+    public bool CheckIfWin(int pointAmount)
     {
         if (points == pointAmount)
         {
@@ -32,7 +25,7 @@ public class PointSystem : MonoBehaviour {
         else return false;
     }
 
-    private bool CheckIfUpgrade(int pointAmount)
+    public bool CheckIfUpgrade(int pointAmount)
     {
         if (points == pointAmount)
         {

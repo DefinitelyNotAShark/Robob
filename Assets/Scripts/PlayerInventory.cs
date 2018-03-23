@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     [HideInInspector]
-    public enum InventoryState { nothing, battery, gear, wire, };//this doesn't really work for player!
+    public enum InventoryState { nothing, battery, gear, wire, };//set a state for whatever the player has in their inventory
 
     private InventoryState inventory;
     [HideInInspector]
@@ -14,8 +14,9 @@ public class PlayerInventory : MonoBehaviour
     [HideInInspector]
     public bool ableToCollectThings;
 
-    private void Start()
+    void Start()
     {
-        inventory = InventoryState.nothing;//find a way to set this somewhe
+        ableToCollectThings = true;
+        inventory = InventoryState.nothing;
     }
 }
