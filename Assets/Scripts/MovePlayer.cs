@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovePlayer : MonoBehaviour {
+public class MovePlayer : MonoBehaviour
+{
 
     [SerializeField]
     public int playerNumber = 1;
@@ -21,13 +22,22 @@ public class MovePlayer : MonoBehaviour {
     private float turnInputValue;
     private int xboxOneController = 0;
 
+    public bool stun = false;
+
+    public Color playerColor;
+    public Color stunColor;
+
+    private MeshRenderer[] renderers;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();//dont split up turn and move. Have it turn BASED ON MOVE
     }
     // Use this for initialization
-    void Start ()
+    void Start()
     {
+        renderers = GetComponentsInChildren<MeshRenderer>();
+
         string[] names = Input.GetJoystickNames();
         for (int x = 0; x < names.Length; x++)
         {
@@ -52,31 +62,26 @@ public class MovePlayer : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update ()
-    { 
+    void Update()
+    {
         movementInputValue = Input.GetAxis(movementAxisName);//stores my input
         turnInputValue = Input.GetAxis(turnAxisName);
     }
 
-    private void OnEnable()//able to move
-    {
-        rigidbody.isKinematic = false;
-        movementInputValue = 0f;
-        turnInputValue = 0f;
-    }
-
-    private void OnDisable()//unable to move
-    {
-        rigidbody.isKinematic = true;
-    }
-
     private void FixedUpdate()
     {
-        // Move and turn player
-        Move();
+        if (!stun)
+        {
+            Move();
 
-        if (xboxOneController == 0)//only do turn if the controller isn't connected
-            Turn();
+            if (xboxOneController == 0)//only do turn if the controller isn't connected
+                Turn();
+        }
+
+        if (stun)//check if you should be stunned
+        {
+            StartCoroutine(Stun());//and then stun you
+        }
     }
 
     private void Turn()
@@ -96,13 +101,29 @@ public class MovePlayer : MonoBehaviour {
             rigidbody.MovePosition(rigidbody.position + movement);//moves my rigidbody the vector3
         }
 
-        else if(xboxOneController == 1)
+        else if (xboxOneController == 1)
         {
             Vector3 movement = new Vector3(turnInputValue, 0, movementInputValue);//this should move normally
 
             //All i have to do now is get the robot to turn the direction it's moving in
             transform.rotation = Quaternion.LookRotation(movement);
             rigidbody.MovePosition(rigidbody.position + movement * speed * Time.deltaTime);//i really hope this moves normally.
+        }
+    }
+
+    public IEnumerator Stun()
+    {
+        ChangePlayerColor(stunColor);
+        yield return new WaitForSeconds(2);
+        ChangePlayerColor(playerColor);
+        stun = false;
+    }
+
+    public void ChangePlayerColor(Color thisColor)
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material.color = thisColor;
         }
     }
 }

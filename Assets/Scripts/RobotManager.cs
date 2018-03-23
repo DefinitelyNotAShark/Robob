@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class RobotManager
 {
     public Color playerColor;
+    public Color stunColor;
     public Transform robotSpawnPoint;
     public Canvas myCanvas;
 
@@ -36,6 +37,8 @@ public class RobotManager
         playerUI.playerNumber = playerNumber;
         pointSystem.playerNumber = playerNumber;//please work!!!
         playerUI.inventoryColor = playerColor;
+        playerMovement.playerColor = playerColor;
+        playerMovement.stunColor = stunColor;
 
         coloredRobotText = "<color=#" + ColorUtility.ToHtmlStringRGB(playerColor) + ">player " + playerNumber + "</color>";
 

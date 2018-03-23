@@ -6,7 +6,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour {
 
     [SerializeField]
-    private int laserSpeed;
+    private float laserSpeed;
 
     [SerializeField]
     Rigidbody bulletRbdy;
@@ -15,8 +15,9 @@ public class Shoot : MonoBehaviour {
     Transform spawnLaser;
 
     public int playerNumber = 1;
+    private int speedMultiplier = 10;
     private float currentLaunchForce;
-    public static  bool fired;
+    public static  bool ableToFire = true;
 
     //private GameObject[] robobChildren;// maybe if i need to ignore the collision
 
@@ -39,9 +40,20 @@ public class Shoot : MonoBehaviour {
 
     private void Fire()
     {
-        fired = true;
-        Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;//its' not this that is being the bitch
+        if (ableToFire)
+        {
+            Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;//its' not this that is being the bitch
+            laserInstance.transform.parent = this.gameObject.GetComponentInParent<Transform>();
+            laserInstance.transform.Rotate(0, 0, 90);//make sure bullet is rotated to look more like a laser
+            laserInstance.velocity = GetComponentInParent<Transform>().forward * laserSpeed * Time.deltaTime * speedMultiplier;
+            StartCoroutine(ShootBuffer());
+        }
+    }
 
-        laserInstance.velocity = GetComponentInParent<Transform>().forward * laserSpeed * Time.deltaTime;
+    private IEnumerator ShootBuffer()
+    {
+        ableToFire = false;
+        yield return new WaitForSeconds(.1f);
+        ableToFire = true;
     }
 }
