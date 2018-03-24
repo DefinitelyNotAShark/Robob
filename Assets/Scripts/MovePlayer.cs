@@ -15,6 +15,9 @@ public class MovePlayer : MonoBehaviour
     [SerializeField]
     public float turnSpeed = 180f;
 
+    [SerializeField]
+    private AudioSource stunSound;
+
     private string movementAxisName;
     private string turnAxisName;
     private Rigidbody rigidbody;
@@ -23,6 +26,7 @@ public class MovePlayer : MonoBehaviour
     private int xboxOneController = 0;
 
     public bool stun = false;
+    private bool stunPlayed = false;
 
     public Color playerColor;
     public Color stunColor;
@@ -80,6 +84,11 @@ public class MovePlayer : MonoBehaviour
 
         if (stun)//check if you should be stunned
         {
+            if (!stunPlayed)
+            {
+                stunSound.Play();
+                stunPlayed = true;
+            }
             StartCoroutine(Stun());//and then stun you
         }
     }
@@ -117,6 +126,7 @@ public class MovePlayer : MonoBehaviour
         yield return new WaitForSeconds(2);
         ChangePlayerColor(playerColor);
         stun = false;
+        stunPlayed = false;
     }
 
     public void ChangePlayerColor(Color thisColor)

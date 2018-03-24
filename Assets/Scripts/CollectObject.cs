@@ -6,17 +6,15 @@ using UnityEngine.UI;
 
 public class CollectObject : MonoBehaviour {
 
+    [SerializeField]
+    private AudioSource collect;
+
     public Sprite wireSprite;
     public Sprite gearSprite;
     public Sprite batterySprite;
 
     PlayerInventory playerInventory;
     SetUIForPlayers setUI;
-
-    private void Start()
-    {
-        
-    }
 
     public void PullTrigger(Collider other, string tagName, GameObject thisObject)
     {
@@ -25,6 +23,7 @@ public class CollectObject : MonoBehaviour {
 
         if (tagName == "wire" && playerInventory.ableToCollectThings)
         {
+            collect.Play();
             setUI.ChangeImageToItem(wireSprite);
             playerInventory.Inventory = PlayerInventory.InventoryState.wire;
             playerInventory.ableToCollectThings = false;
@@ -33,6 +32,7 @@ public class CollectObject : MonoBehaviour {
 
         if (tagName == "battery" && playerInventory.ableToCollectThings)
         {
+            collect.Play();
             playerInventory.Inventory = PlayerInventory.InventoryState.battery;
             setUI.ChangeImageToItem(batterySprite);
             playerInventory.ableToCollectThings = false;
@@ -41,6 +41,7 @@ public class CollectObject : MonoBehaviour {
 
         if (tagName == "gear" && playerInventory.ableToCollectThings)
         {
+            collect.Play();
             playerInventory.Inventory = PlayerInventory.InventoryState.gear;
             setUI.ChangeImageToItem(gearSprite);
             playerInventory.ableToCollectThings = false;

@@ -20,6 +20,15 @@ public class ChangeOverlordColor : MonoBehaviour {
     public ParticleSystem particleSystem;
     public ParticleSystem secondParticleSystem;
 
+    [SerializeField]
+    private AudioSource spark1;
+    [SerializeField]
+    private AudioSource spark2;
+    [SerializeField]
+    private AudioSource correct;
+    [SerializeField]
+    private AudioSource wrong;
+
 	// Use this for initialization
 	void Awake()
     {
@@ -40,8 +49,10 @@ public class ChangeOverlordColor : MonoBehaviour {
         for (; ; )
         {
             particleSystem.Play();
+            spark1.Play();
             yield return new WaitForSeconds(.5f);
             secondParticleSystem.Play();
+            spark2.Play();
             yield return new WaitForSeconds(.5f);
             particleSystem.Stop();
             secondParticleSystem.Stop();
@@ -55,6 +66,7 @@ public class ChangeOverlordColor : MonoBehaviour {
         {
             renderers[i].material.color = correctColor;
         }
+        correct.Play();
         yield return new WaitForSeconds(1);
         GoBackToNormal();
 
@@ -66,6 +78,7 @@ public class ChangeOverlordColor : MonoBehaviour {
         {
             renderers[i].material.color = wrongColor;
         }
+        wrong.Play();
         yield return new WaitForSeconds(1);
         GoBackToNormal();
     }

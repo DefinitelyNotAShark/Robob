@@ -14,6 +14,9 @@ public class Shoot : MonoBehaviour {
     [SerializeField]
     Transform spawnLaser;
 
+    [SerializeField]
+    AudioSource laser;
+
     public int playerNumber = 1;
     private int speedMultiplier = 10;
     private float currentLaunchForce;
@@ -42,6 +45,7 @@ public class Shoot : MonoBehaviour {
     {
         if (ableToFire)
         {
+            laser.Play();
             Rigidbody laserInstance = Instantiate(bulletRbdy, spawnLaser.position, spawnLaser.rotation) as Rigidbody;//its' not this that is being the bitch
             laserInstance.transform.parent = this.gameObject.GetComponentInParent<Transform>();
             laserInstance.transform.Rotate(0, 0, 90);//make sure bullet is rotated to look more like a laser
