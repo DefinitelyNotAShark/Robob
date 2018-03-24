@@ -32,4 +32,9 @@ public class ButtonNavigation : MonoBehaviour {
          Application.Quit();
 #endif
     }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
