@@ -35,6 +35,13 @@ public class ButtonNavigation : MonoBehaviour {
 
     public void PlayAgain()
     {
+        buttonClick.Play();
         SceneManager.LoadScene(0);
+    }
+
+    public void HowToPlay()
+    {
+        buttonClick.Play();
+        SceneManager.LoadScene(4);
     }
 }

@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WinScene2.unity
     guid: 1d87d380f7cb75e45bb923ad6394036c
+  - enabled: 1
+    path: Assets/Scenes/HowToScreen.unity
+    guid: a932192dba83c9140b4ff2f933b81c3d
