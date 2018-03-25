@@ -10,7 +10,7 @@ public class PointSystem : MonoBehaviour {
     public int points = 0;
 
     [HideInInspector]
-    public int amountOfPointsTillWin = 6;
+    public int amountOfPointsTillWin = 8;
 
     public int playerNumber = 0;
 

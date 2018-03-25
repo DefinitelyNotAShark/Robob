@@ -77,8 +77,6 @@ public class MovePlayer : MonoBehaviour
         if (!stun)
         {
             Move();
-            Debug.Log("horizontal is " + turnInputValue);
-            Debug.Log("vertical is " + movementInputValue);
 
             if (xboxOneController == 0)//only do turn if the controller isn't connected
                 Turn();
