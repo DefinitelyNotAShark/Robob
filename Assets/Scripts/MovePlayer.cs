@@ -23,7 +23,7 @@ public class MovePlayer : MonoBehaviour
     private Rigidbody rigidbody;
     private float movementInputValue;
     private float turnInputValue;
-    private int xboxOneController = 0;
+    public static int xboxOneController = 0;
 
     public bool stun = false;
     private bool stunPlayed = false;
@@ -77,6 +77,8 @@ public class MovePlayer : MonoBehaviour
         if (!stun)
         {
             Move();
+            Debug.Log("horizontal is " + turnInputValue);
+            Debug.Log("vertical is " + movementInputValue);
 
             if (xboxOneController == 0)//only do turn if the controller isn't connected
                 Turn();
@@ -96,7 +98,6 @@ public class MovePlayer : MonoBehaviour
     private void Turn()
     {
         // Adjust the rotation of the tank based on the player's input.
-
         float turn = turnInputValue * turnSpeed * Time.deltaTime;
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
         rigidbody.MoveRotation(rigidbody.rotation * turnRotation);

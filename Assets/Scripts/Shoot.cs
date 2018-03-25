@@ -28,7 +28,12 @@ public class Shoot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        fireButton = "Fire" + playerNumber;
+        if (MovePlayer.xboxOneController == 0)
+            fireButton = "Fire" + playerNumber;
+
+        else if (MovePlayer.xboxOneController == 1)
+            fireButton = "FireController" + playerNumber;
+
         Physics.IgnoreCollision(bulletRbdy.GetComponent<Collider>(), GetComponent<Collider>());
     }
 

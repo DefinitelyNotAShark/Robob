@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/TestingLaser.unity
+    guid: 9b053682d0f327347a9e23cff2bcefa7
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: c9c552eff9e852649a87331f6e2c25c3
