@@ -44,4 +44,16 @@ public class ButtonNavigation : MonoBehaviour {
         buttonClick.Play();
         SceneManager.LoadScene(4);
     }
+
+    public void Back()
+    {
+        buttonClick.Play();
+        SceneManager.LoadScene(0);
+    }
+
+    public void Credits()
+    {
+        buttonClick.Play();
+        SceneManager.LoadScene(5);
+    }
 }
