@@ -32,7 +32,7 @@ public class Shoot : MonoBehaviour {
             fireButton = "Fire" + playerNumber;
 
         else if (MovePlayer.xboxOneController == 1)
-            fireButton = "FireController" + playerNumber;
+            fireButton = "ControllerFire" + playerNumber;
 
         Physics.IgnoreCollision(bulletRbdy.GetComponent<Collider>(), GetComponent<Collider>());
     }
@@ -55,6 +55,7 @@ public class Shoot : MonoBehaviour {
             laserInstance.transform.parent = this.gameObject.GetComponentInParent<Transform>();
             laserInstance.transform.Rotate(0, 0, 90);//make sure bullet is rotated to look more like a laser
             laserInstance.velocity = GetComponentInParent<Transform>().forward * laserSpeed * Time.deltaTime * speedMultiplier;
+            laserInstance.transform.rotation = Quaternion.identity;
             StartCoroutine(ShootBuffer());
         }
     }
